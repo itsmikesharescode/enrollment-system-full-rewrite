@@ -56,8 +56,19 @@ const config = {
 			},
 			fontFamily: {
 				sans: [...fontFamily.sans]
+			},
+
+			spacing: {
+				// Define a custom class for horizontal flip
+				flip: 'scaleX(-1)',
+			  },
+			
+			scale: {
+				'-100': '-1',
 			}
-		}
+		},
+
+		
 	},
 };
 

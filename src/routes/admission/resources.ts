@@ -1,5 +1,5 @@
 import {writable} from "svelte/store";
-
+import {z} from "zod";
 
 export const admissionState = writable({
     college: [
@@ -534,4 +534,4 @@ export const admissionState = writable({
             ]
         },
     ],
-})
+});

@@ -12,6 +12,9 @@
 	import type { ResultModel } from "$lib/types";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
 	import { toast } from "svelte-sonner";
+    import { navState } from "$lib";
+
+    $navState.activeItem = "/admission";
 
     export let data: PageServerData;
 

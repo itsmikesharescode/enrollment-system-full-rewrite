@@ -1,12 +1,19 @@
 import type { Session } from "@supabase/supabase-js";
 import {writable} from "svelte/store";
-import type { SearchStoreModel } from "./types";
+import type { ApplicationModel, FormModel, SearchStoreModel } from "./types";
 
 export const navState = writable({
 
     activeItem: "",
 
     session:<Session | null> null,
+
+    creator: [
+        {
+            title: "Mike Shares Code",
+            url: "/"
+        }
+    ],
 
     defaultNav: [
         {
@@ -85,7 +92,7 @@ export const adminState = writable({
 });
 
 export const studentState = writable({
-
+    student_form:<ApplicationModel | null> null,
 });
 
 //generators

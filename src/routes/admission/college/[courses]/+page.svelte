@@ -11,9 +11,11 @@
 	import { toast } from "svelte-sonner";
 	import Loader from "$lib/my-components/Loader.svelte";
     import * as AlertDialog from "$lib/components/ui/alert-dialog";
+    import { navState } from "$lib";
 
     export let data: PageServerData;
 
+    $navState.activeItem = "/admission";
 
     let authCheckLoader = false;
     let showLoginDialog = false;
@@ -79,7 +81,7 @@
         </Button>
     
         <Button variant="link" class="flex items-center gap-1 max-w-fit" on:click={() => goto("/admission/seniorhigh")}>
-            Jump to Senior High
+            Jump to Senior High Tracks
             <MoveUpRight size="18px" />
         </Button>
     </div>

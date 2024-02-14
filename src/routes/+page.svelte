@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from "$lib/components/ui/button/button.svelte";
-    import { ArrowRight } from 'lucide-svelte';
+    import { ArrowRight, Quote } from 'lucide-svelte';
     import { generatedText, navState } from "$lib";
 	import { onDestroy } from "svelte";
 	import { fade, scale } from "svelte/transition";
@@ -22,7 +22,9 @@
 <div class="flex flex-col items-center justify-center sm:max-w-xl mx-auto min-h-[70dvh] p-2" in:fade>
     
    {#key displayText}
-        <blockquote class="mt-6 border-l-2 pl-6 italic" in:fade={{duration:450}}>"{displayText}"</blockquote>
+        <blockquote class="mt-6 border-l-2 pl-6 italic flex gap-2 " in:fade={{duration:450}}>
+            <Quote  class="transform -scale-x-100"/>{displayText}<Quote />
+        </blockquote>
     {/key}
 
     <h2 class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 max-w-fit mt-10">
@@ -45,3 +47,4 @@
     </div>
 
 </div>
+

@@ -4,15 +4,27 @@
     import { ModeWatcher } from "mode-watcher";
     import { Toaster } from "$lib/components/ui/sonner";
 	import type { LayoutData } from "./$types";
-	import { onMount } from "svelte";
 	import Footer from "$lib/my-components/Footer.svelte";
-    import {navState} from "$lib";
+    import {navState, studentState} from "$lib";
+	import { onMount } from "svelte";
 
     export let data: LayoutData;
 
-    onMount( async () => {
-        $navState.session = data.session;
-    })
+    onMount( () => {
+
+        if(data.session){
+            const {user: {user_metadata: {full_name, role}}} = data.session;
+            $navState.session = data.session;
+            $studentState.student_form = data.get_application.data;
+            if(role === "student") $navState.creator = $navState.studentNav;
+            else if(role === "admin") $navState.creator = $navState.adminNav;
+        }else{
+            $navState.creator = $navState.defaultNav;
+        }
+    });
+
+
+    
     
 </script>
 <Toaster position="bottom-left" />

@@ -35,9 +35,15 @@
                 
             switch (status) {
                 case 200:
+                    const {user: {user_metadata:{role, full_name}}} = session;
+
                     $navState.session = session;
                     toast.success("Success", {description: msg});
                     loginLoader = false;
+
+                    if(role === "student") $navState.creator = $navState.studentNav, goto("/status");
+                    else if(role === "admin") $navState.creator = $navState.adminNav, goto("/status/pending");
+                    
                     break;
                 
                 case 400:
