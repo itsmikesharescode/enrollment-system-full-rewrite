@@ -60,7 +60,8 @@
                             }}
                             >{route.title}</a>
                         {/each}
-                      
+                        
+                        <!--Mobile-->
                         <div class="flex flex-col gap-2">
                             {#if $navState.session}
                                 <form method="post" action="/login?/logoutHandler" enctype="multipart/form-data" use:enhance={logoutHandlerNews}>
@@ -69,8 +70,14 @@
                                     </Button>
                                 </form>
                             {:else}
-                                <Button variant="secondary" on:click={() => goto("/login")}>Sign In</Button>
-                                <Button on:click={() => goto("/login?register=true")}>Sign Up Free</Button>
+                                <Button variant="secondary" on:click={() => {
+                                    goto("/login");
+                                    mobileSlider = false;
+                                }}>Sign In</Button>
+                                <Button on:click={() => {
+                                    goto("/login?register=true");
+                                    mobileSlider = false;
+                                }}>Sign Up Free</Button>
                             {/if}
                         </div>
     
@@ -91,7 +98,7 @@
             {/each}
     
         </div>
-    
+        <!--Desktop-->
         <div class="flex items-center gap-2">
             
             {#if $navState.session}
@@ -101,8 +108,10 @@
                     </Button>
                 </form>
             {:else}
-                <Button variant="secondary" on:click={() => goto("/login")}>Sign In</Button>
-                <Button on:click={() => goto("/login?register=true")}>Sign Up Free</Button>
+                <div class="items-center gap-2 hidden md:flex">
+                    <Button variant="secondary" on:click={() => goto("/login")}>Sign In</Button>
+                    <Button on:click={() => goto("/login?register=true")}>Sign Up Free</Button>
+                </div>
             {/if}
             
             <DarkMode />

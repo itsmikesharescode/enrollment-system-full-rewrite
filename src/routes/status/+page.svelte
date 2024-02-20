@@ -1,23 +1,17 @@
 <script lang="ts">  
-	import { enhance } from "$app/forms";
     import { navState, studentState } from "$lib";
 	import { fade } from "svelte/transition";
-    import { Input } from "$lib/components/ui/input";
-    import { Label } from "$lib/components/ui/label";
 	import type { PageServerData } from "./$types";
 	import Button from "$lib/components/ui/button/button.svelte";
     import { ArrowLeft, MoveUpRight, Quote } from "lucide-svelte";
 	import { goto } from "$app/navigation";
-	import { onMount } from "svelte";
     import { admissionState } from "../admission/resources";
 	import type { CourseModel, FormModel } from "$lib/types";
     import * as Card from "$lib/components/ui/card";
 	import DeleteApplication from "./DeleteApplication.svelte";
-    
+	import UpdateApplication from "./UpdateApplication.svelte";
 
     export let data: PageServerData;
-
-    const {get_application: {data:application}} = data;
 
     $navState.activeItem = "/status";
 
@@ -39,20 +33,18 @@
                 });
             });
         }
-    }
+    };
 
-    onMount( () => {
-
-        $studentState.student_form = application;
-
-        if($studentState.student_form){
+    $: {
+        if(data.get_application.data) {
+            $studentState.student_form = data.get_application.data;
             
-            student_form = JSON.parse($studentState.student_form.user_application);
-            getCourseModel($studentState.student_form.application_type, student_form?.selected_course as string);
-
-        };
-    })
-    
+            if($studentState.student_form){
+                student_form = JSON.parse($studentState.student_form.user_application);
+                getCourseModel($studentState.student_form.application_type, student_form?.selected_course as string);
+            };
+        }
+    }
   
 </script>
 
@@ -107,7 +99,9 @@
                         
                         <DeleteApplication />
                      
-                        <Button class="w-full md:max-w-fit" >Update Application</Button>
+                        {#if student_form}
+                            <UpdateApplication {student_form} />
+                        {/if}
                     </Card.Footer>
                 </Card.Root>
             </div>

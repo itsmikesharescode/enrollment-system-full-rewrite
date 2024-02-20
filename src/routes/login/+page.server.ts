@@ -4,8 +4,9 @@ import { forgotPasswordSchema, loginSchema, registerSchema } from "./schema";
 import type { PageServerLoad } from "./$types";
 import type { PostgrestError, Session } from "@supabase/supabase-js";
 
-export const load: PageServerLoad = async ({cookies, url, locals: {supabase}}) => {
+export const load: PageServerLoad = async ({cookies, url, locals: {supabase, supabaseAdmin}}) => {
 
+    
     let cookie = cookies.get("sb-cyamrqqtnrherbhogqwg-auth-token");
 
     if(cookie){
@@ -17,7 +18,7 @@ export const load: PageServerLoad = async ({cookies, url, locals: {supabase}}) =
             const {data: isAdmin, error: isAdminError} = await supabase.rpc("is_admin") as {data: boolean, error: PostgrestError | null};
 
             if(isAdminError) throw redirect(302, "/?error=there-is-an-error-check-your-internet");
-            else if(isAdmin) throw redirect(302, "/status/pending");
+            else if(isAdmin) throw redirect(302, "/pending");
             else throw redirect(302, "/status");
         }
         else throw redirect(302, "");

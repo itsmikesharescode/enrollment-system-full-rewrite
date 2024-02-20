@@ -26,6 +26,10 @@ export const load: PageServerLoad = async ({url, locals: {supabase}, cookies}) =
         let session: Session = JSON.parse(cookies.get("sb-cyamrqqtnrherbhogqwg-auth-token") as string);
         if(session){
 
+            const {data: isAdmin, error: isAdminError} = await supabase.rpc("is_admin") as {data: boolean, error: PostgrestError | null};
+
+            if(isAdmin) throw redirect(302, "/pending?error=admin-not-allowed");
+            
             const {data:alreadySubmit, error: alreadySubmitError} = await supabase.rpc("is_submitted_application") as {data: boolean, error: PostgrestError | null};
 
             if(alreadySubmitError) throw redirect(302, "/?has-error-contact-mikey");

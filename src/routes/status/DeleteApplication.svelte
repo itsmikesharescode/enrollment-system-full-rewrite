@@ -11,9 +11,11 @@
  
     let delete_dialog = false;
     let delete_application_loader = false;
+
     const deleteApplicationNews: SubmitFunction = () => 
     {
         delete_application_loader = true;
+        
         return async ({ result, update }) => 
         {
             const {status, data:{msg} } = result as ResultModel<{msg: string}>

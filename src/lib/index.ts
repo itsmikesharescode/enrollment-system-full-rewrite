@@ -52,11 +52,6 @@ export const navState = writable({
             title: "Status",
             url: "/status"
         },
-
-        {
-            title: "Talk",
-            url: "/talk"
-        }
     ],
 
     adminNav: [
@@ -76,14 +71,10 @@ export const navState = writable({
         },
 
         {
-            title: "Status",
-            url: "/status"
+            title: "Pending",
+            url: "/pending"
         },
 
-        {
-            title: "Talk",
-            url: "/talk"
-        }
     ],
 })
 
