@@ -79,7 +79,7 @@ export const navState = writable({
 })
 
 export const adminState = writable({
-
+    pendingArray:<ApplicationModel[] | null> null,
 });
 
 export const studentState = writable({

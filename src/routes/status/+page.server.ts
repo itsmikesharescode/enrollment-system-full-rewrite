@@ -1,6 +1,6 @@
 import { redirect, type Actions, fail } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import type { Session } from "@supabase/supabase-js";
+import type { PostgrestError, Session } from "@supabase/supabase-js";
 import type { FormModel } from "$lib/types";
 import type { ZodError } from "zod";
 import { updateApplicationSchema } from "./schema";
@@ -15,7 +15,15 @@ export const load: PageServerLoad = async ({url, cookies, locals: {supabase}}) =
     if(cookie){
         let session: Session = JSON.parse(cookies.get("sb-cyamrqqtnrherbhogqwg-auth-token") as string);
     
-        if(session) return {get_application: await supabase.from("applications").select(application_query).eq("user_id", session.user.id).limit(1).single()};
+        if(session) {
+
+            const {data: is_admin, error:is_admin_error} = await supabase.rpc("is_admin") as {data: boolean, error: PostgrestError | null};
+
+            if(is_admin) throw redirect(302, "/pending");
+            else if(is_admin_error) throw redirect(302, "/?error=internet-problem");
+
+            return {get_application: await supabase.from("applications").select(application_query).eq("user_id", session.user.id).single()};
+        }
         else throw redirect(302, "/login?you-have-to-login");
 
     }else return redirect(302, "/login?you-have-to-login");

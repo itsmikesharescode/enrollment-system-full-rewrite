@@ -10,6 +10,7 @@ export interface SearchStoreModel<T extends Record<PropertyKey, any>> {
     search: string
 };
 
+
 export type CourseModel = {
     title: string
     img: string

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
-	import { goto } from "$app/navigation";
+	import { goto, invalidateAll } from "$app/navigation";
 	import { navState } from "$lib";
     import Button from "$lib/components/ui/button/button.svelte";
     import { Input } from "$lib/components/ui/input";
@@ -41,6 +41,8 @@
                 case 200:
                     $navState.session = session;
                     toast.success("Success", {description: msg});
+                    $navState.creator = $navState.studentNav;
+                    goto("/status");
                     registerLoader = false;
                     break;
                 

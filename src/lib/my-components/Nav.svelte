@@ -3,7 +3,7 @@
     import { AlignJustify } from 'lucide-svelte';
     import * as Sheet from "$lib/components/ui/sheet";
 	import DarkMode from './DarkMode.svelte';
-    import { navState } from '$lib';
+    import { navState, studentState } from '$lib';
 	import { goto, invalidate } from '$app/navigation';
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
@@ -26,6 +26,7 @@
                     toast.success("Success", {description: msg} );
                     $navState.session = null;
                     $navState.creator = $navState.defaultNav;
+                    $studentState.student_form = null;
                     goto("/login")
                     logoutLoader = false;
                     break;

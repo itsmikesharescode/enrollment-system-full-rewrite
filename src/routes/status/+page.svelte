@@ -43,7 +43,7 @@
                 student_form = JSON.parse($studentState.student_form.user_application);
                 getCourseModel($studentState.student_form.application_type, student_form?.selected_course as string);
             };
-        }
+        }else $studentState.student_form = null;
     }
   
 </script>
