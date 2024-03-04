@@ -4,7 +4,6 @@
     import Button from "$lib/components/ui/button/button.svelte";
     import { ArrowLeft, MoveUpRight, ArrowRight  } from 'lucide-svelte';
 	import { goto } from "$app/navigation";
-    import sample_image from "$lib/images/sample_enhance.jpg";
     import * as Card from "$lib/components/ui/card";
 	import Loader from "$lib/my-components/Loader.svelte";
 	import { enhance } from "$app/forms";
