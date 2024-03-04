@@ -57,7 +57,7 @@
             <div class="w-full">
                 <Card.Root class="border-none">
                     <Card.Header>
-                        <Card.Title>Status: Pending</Card.Title>
+                        <Card.Title>Status: {$studentState.student_form.is_accepted ? "Accepted" : "Pending"}</Card.Title>
                         <Card.Description>Your application are still in process.</Card.Description>
                     </Card.Header>
                    
