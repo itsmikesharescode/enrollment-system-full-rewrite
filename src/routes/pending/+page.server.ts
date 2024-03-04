@@ -45,5 +45,19 @@ export const actions: Actions = {
         if(applicationsError) return fail(400, {msg: applicationsError.message});
         else if(applications) return fail(200, {msg: "Applications Retrieve", applications});
 
+    },
+
+    acceptDecline: async ({request, cookies, locals: {supabase}}) =>
+    {
+        const formData = await request.formData();
+        const is_accepted: {pendingApp: boolean, id: number}  = JSON.parse(formData.get("is_accepted") as string);
+
+        const {error: acceptError} = await supabase.from("applications").update([{
+            is_accepted: is_accepted.pendingApp ? false : true
+        }]).eq("id", is_accepted.id);
+
+        if(acceptError) return fail(400, {msg: acceptError.message});
+        else return fail(200, {msg: `You have successfully ${is_accepted.pendingApp ? "Declined." : "Accepted."}`});
+        
     }
 };

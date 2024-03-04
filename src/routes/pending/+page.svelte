@@ -8,7 +8,6 @@
 	import { toast } from "svelte-sonner";
 	import type { PageServerData } from "./$types";
 	import { navState } from "$lib";
-	import Button from "$lib/components/ui/button/button.svelte";
 	import ShowDetails from "./ShowDetails.svelte";
 
     export let data: PageServerData;
@@ -20,7 +19,7 @@
         applications: ApplicationModel[]
     };
 
-    let pendingArray: ApplicationModel[] | null | undefined = data.appData?.data;
+    $: pendingArray = data.appData?.data;
     
     const paginatingNews: SubmitFunction = () => 
     {
